@@ -70,3 +70,47 @@ resetButton.onclick = () => {
     count = 0;
     interval.textContent = count;
 };
+
+
+// hw 4.1
+
+function user() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET','../data/person.json');
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.send()
+
+    xhr.onload = () => {
+    const data = JSON.parse(xhr.response);
+    data.forEach(person => {
+        const block = document.createElement("div");
+        block.setAttribute('class', 'block');
+        block.innerHTML = `
+            <div class="block_user">
+                <p>Name: ${person.name}</p>
+                <span>Age: ${person.age}</span>
+                <img src="${person.person_photo}" alt="${person.name}">
+            </div>
+        `;
+        document.body.append(block);
+        });
+    }
+}
+
+user();
+
+// hw 4.2
+
+function any() {
+    const xhr_1 = new XMLHttpRequest();
+    xhr_1.open('GET','../data/any.json');
+    xhr_1.setRequestHeader('Content-type', 'application/json');
+    xhr_1.send()
+
+    xhr_1.onload = () => {
+        const data = JSON.parse(xhr_1.response);
+        console.log(data)
+    }
+}
+
+any();

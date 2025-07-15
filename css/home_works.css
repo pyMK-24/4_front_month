@@ -228,3 +228,40 @@
     height: 100%;
     object-fit: cover;
 }
+
+
+/* hw 4 - users */
+.block {
+    display: flex;
+    flex-wrap: nowrap;        
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: auto;         
+}
+
+.block_user {
+    background: #111;
+    border: 2px solid var(--orange);
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(255, 165, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;           
+}
+
+.block_user img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid var(--orange);
+}

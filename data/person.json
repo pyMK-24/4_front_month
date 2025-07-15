@@ -1,0 +1,17 @@
+[
+    {
+        "name": "John",
+        "age": 40,
+        "person_photo": "https://assets-prd.ignimgs.com/2023/02/08/jw4-2025x3000-online-character-1sht-keanu-v187-1675886090936.jpg"
+    },
+    {
+        "name": "Tommy",
+        "age": 34,
+        "person_photo": "https://upload.wikimedia.org/wikipedia/en/thumb/f/fd/Tommy_Shelby.jpg/250px-Tommy_Shelby.jpg"
+    },
+    {
+        "name": "Ryan",
+        "age": 24,
+        "person_photo": "https://m.media-amazon.com/images/I/615ot6U8mgL._UF894,1000_QL80_.jpg"
+    }
+]    
