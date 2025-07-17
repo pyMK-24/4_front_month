@@ -82,17 +82,19 @@ function user() {
 
     xhr.onload = () => {
     const data = JSON.parse(xhr.response);
+    const div_class = document.querySelector('.characters-list')
+
     data.forEach(person => {
         const block = document.createElement("div");
         block.setAttribute('class', 'block');
         block.innerHTML = `
-            <div class="block_user">
+            <div class="character-card">
                 <p>Name: ${person.name}</p>
                 <span>Age: ${person.age}</span>
                 <img src="${person.person_photo}" alt="${person.name}">
             </div>
         `;
-        document.body.append(block);
+        div_class.append(block);
         });
     }
 }
