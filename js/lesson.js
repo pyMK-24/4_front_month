@@ -136,3 +136,51 @@ const convertor = (element) => {
 convertor(somInput);
 convertor(usdInput);
 convertor(eurInput);
+
+
+// card switch
+const cardBlock = document.querySelector(".card");
+const btnNext = document.querySelector("#btn-next");
+const btnPrev = document.querySelector("#btn-prev");
+
+// let numId = 197; 
+let numId = 1; 
+
+const blocks = (id) => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+            const {title, id, completed} = data;
+
+            cardBlock.innerHTML = `
+                <p>${title}</p>
+                <p>${completed}</p>
+                <span>${id}</span>
+            `
+        })
+}
+
+blocks(numId);
+
+btnNext.onclick = () => {
+    numId++;
+    if (numId > 200) {
+        numId = 1;
+    }
+    blocks(numId);
+}
+
+btnPrev.onclick = () => {
+    numId--;
+    if (numId < 1) {
+        numId = 200;
+    }
+    blocks(numId);
+}
+
+// hw_6
+const request = fetch("https://jsonplaceholder.typicode.com/posts")
+    .then((responce) => responce.json())
+    .then((data) => {
+        console.log(data)
+    })
