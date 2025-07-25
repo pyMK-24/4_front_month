@@ -72,47 +72,44 @@ resetButton.onclick = () => {
 };
 
 
-// hw 4.1
+// hw 4.1 - updated
 
-function user() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET','../data/person.json');
-    xhr.setRequestHeader('Content-type', 'application/json');
-    xhr.send()
+// const user = async () => {
+//     try {
+//         const response = await fetch("../data/person.json");
+//         const data = await response.json();
 
-    xhr.onload = () => {
-    const data = JSON.parse(xhr.response);
-    const div_class = document.querySelector('.characters-list')
+//         const div_class = document.querySelector('.characters-list');
+//         data.forEach(person => {
+//             const block = document.createElement("div");
+//             block.setAttribute("class", "block");
+//             block.innerHTML = `
+//                 <div class="character-card">
+//                     <p>Name: ${person.name}</p>
+//                     <span>Age: ${person.age}</span>
+//                     <img src="${person.person_photo}" alt="${person.name}">
+//                 </div>
+//                 `;
+//             div_class.append(block);
+//         })
 
-    data.forEach(person => {
-        const block = document.createElement("div");
-        block.setAttribute('class', 'block');
-        block.innerHTML = `
-            <div class="character-card">
-                <p>Name: ${person.name}</p>
-                <span>Age: ${person.age}</span>
-                <img src="${person.person_photo}" alt="${person.name}">
-            </div>
-        `;
-        div_class.append(block);
-        });
-    }
-}
+//     } catch(error) {
+//         console.error(`Ошибка при получении постов: ${error}`);
+//     }
+// }
 
-user();
+// user();
 
 // hw 4.2
 
-function any() {
-    const xhr_1 = new XMLHttpRequest();
-    xhr_1.open('GET','../data/any.json');
-    xhr_1.setRequestHeader('Content-type', 'application/json');
-    xhr_1.send()
+// const any = async () => {
+//     try {
+//         const response = await fetch("../data/any.json");
+//         const data = await response.json();
+//         console.log(data)
+//     } catch(error) {
+//         console.error(`Ошибка при получении постов: ${error}`);
+//     }
+// }
 
-    xhr_1.onload = () => {
-        const data = JSON.parse(xhr_1.response);
-        console.log(data)
-    }
-}
-
-any();
+// any();

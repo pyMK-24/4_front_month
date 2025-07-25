@@ -65,39 +65,12 @@ const autoSliderTabs = () => {
 
 autoSliderTabs();
 
-
-//convertor
-
-
-// somInput.oninput = () => {
-//     const xhr = new  XMLHttpRequest()
-//     xhr.open('GET', '../data/convertor.json')
-//     xhr.setRequestHeader('Content-type', 'application/json')
-//     xhr.send()
-    
-//     xhr.onload = () => {
-//         const vasheBezRaznitsy = JSON.parse(xhr.response)
-//         console.log(vasheBezRaznitsy.usd)
-//         usdInput.value = (somInput.value / vasheBezRaznitsy.usd).toFixed(2)
-//     }
-// };
-// usdInput.oninput = () => {
-//     const xhr = new  XMLHttpRequest()
-//     xhr.open('GET', '../data/convertor.json')
-//     xhr.setRequestHeader('Content-type', 'application/json')
-//     xhr.send()
-    
-//     xhr.onload = () => {
-//         const vasheBezRaznitsy = JSON.parse(xhr.response)
-//         console.log(vasheBezRaznitsy.usd)
-//         somInput.value = (usdInput.value * vasheBezRaznitsy.usd).toFixed(2)
-//     }
-// };
-
 // DRY - dont repeat yourself
 // KISS - keep it simple, stupid!
 // SOLID - ...
-// BEM - ...
+// BEM - ... 
+
+//convertor - updated
 
 const somInput = document.querySelector('#som');
 const usdInput = document.querySelector('#usd');
@@ -105,14 +78,11 @@ const eurInput = document.querySelector('#eur');
 
 
 const convertor = (element) => {
-    element.oninput = () => {
-        const xhr = new  XMLHttpRequest()
-        xhr.open('GET', '../data/convertor.json')
-        xhr.setRequestHeader('Content-type', 'application/json')
-        xhr.send()
+    element.oninput = async () => {
+        try {
+            const response = await fetch("../data/convertor.json");
+            const data = await response.json();
 
-        xhr.onload = () => {
-            const data = JSON.parse(xhr.response)
             if (element.id === 'som') {
                 usdInput.value = (element.value / data.usd).toFixed(4)
                 eurInput.value = (element.value / data.eur).toFixed(4)
@@ -130,15 +100,18 @@ const convertor = (element) => {
                 usdInput.value = '';
                 eurInput.value = '';
             }
+        } catch(error) {
+            console.error(`Ошибка при получении постов: ${error}`);
         }
-    }
+    } 
 };
+
 convertor(somInput);
 convertor(usdInput);
 convertor(eurInput);
 
 
-// card switch
+// card switch - updated
 const cardBlock = document.querySelector(".card");
 const btnNext = document.querySelector("#btn-next");
 const btnPrev = document.querySelector("#btn-prev");
@@ -146,18 +119,20 @@ const btnPrev = document.querySelector("#btn-prev");
 // let numId = 197; 
 let numId = 1; 
 
-const blocks = (id) => {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-            const {title, id, completed} = data;
-
-            cardBlock.innerHTML = `
-                <p>${title}</p>
-                <p>${completed}</p>
-                <span>${id}</span>
-            `
-        })
+const blocks = async (id) => {
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`);
+        const data = await response.json();
+        const {title, id: numId, completed} = data;
+    
+        cardBlock.innerHTML = `
+            <p>${title}</p>
+            <p>${completed}</p>
+            <span>${numId}</span>
+        `;
+    } catch(error) {
+        console.error(`Ошибка при получении постов: ${error}`);
+    }
 }
 
 blocks(numId);
@@ -178,9 +153,62 @@ btnPrev.onclick = () => {
     blocks(numId);
 }
 
-// hw_6
-const request = fetch("https://jsonplaceholder.typicode.com/posts")
-    .then((responce) => responce.json())
-    .then((data) => {
-        console.log(data)
-    })
+// hw_6 - updated
+
+// const getPosts = async () => {
+//     try {
+//         const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+//         const data = await response.json();
+//         console.log(data);
+//     } catch (error) {
+//         console.error(`Ошибка при получении постов: ${error}`);
+//     }
+// }
+
+// getPosts();
+
+// weather
+
+const searchInput = document.querySelector(".cityName");
+const searchButton = document.querySelector("#search");
+const city = document.querySelector(".city");
+const temp = document.querySelector(".temp");
+
+// http://api.openweathermap.org/data/2.5/weather
+// API_KEY = e417df62e04d3b1b111abeab19cea714
+
+const API = 'http://api.openweathermap.org/data/2.5/weather';
+const API_KEY = 'e417df62e04d3b1b111abeab19cea714'
+
+const searchWeather = async () => {
+    if (searchInput.value === "") {
+        city.innerHTML = "Введи названия города"
+    }
+    try {
+        const response = await fetch(`${API}?q=${searchInput.value}&appid=${API_KEY}&units=metric&lang=ru`);
+        const data = await response.json();
+
+        city.innerHTML = data.name || "Город не найден";
+        temp.innerHTML = data.main?.temp ? Math.round(data.main?.temp) + "&deg;C" : "";
+        searchInput.value = "";
+    } catch(error) {
+        console.error(`Ошибка при получении постов: ${error}`);
+    }
+}
+
+searchButton.onclick = () => searchWeather()
+window.onkeydown = (event) => {
+    if (event.code === 'Enter'){
+        searchWeather()
+    }
+}
+
+searchButton.onclick = () => searchWeather()
+window.onkeydown = (event) => {
+    if (event.code === "Enter") {
+        searchWeather()
+    }
+}
+
+
+
